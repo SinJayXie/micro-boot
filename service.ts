@@ -1,7 +1,7 @@
-import * as Koa from "koa";
-import * as KoaRouter from "koa-router";
-import * as Http from "http";
-import * as Core from "./lib/core";
+import * as Koa from 'koa';
+import * as KoaRouter from 'koa-router';
+import * as Http from 'http';
+import * as Core from './lib/core';
 
 const app = new Koa();
 const router = new KoaRouter();
@@ -12,7 +12,7 @@ app.use(router.routes());
 app.use(router.allowedMethods());
 
 Http.createServer(app.callback()).listen({ port: 3000, host: '0.0.0.0' }, function () {
-    console.log(` _____ ______   ___  ________  ________  ________  ________  ________  ________  _________   
+  console.log(` _____ ______   ___  ________  ________  ________  ________  ________  ________  _________   
 |\\   _ \\  _   \\|\\  \\|\\   ____\\|\\   __  \\|\\   __  \\|\\   __  \\|\\   __  \\|\\   __  \\|\\___   ___\\ 
 \\ \\  \\\\\\__\\ \\  \\ \\  \\ \\  \\___|\\ \\  \\|\\  \\ \\  \\|\\  \\ \\  \\|\\ /\\ \\  \\|\\  \\ \\  \\|\\  \\|___ \\  \\_| 
  \\ \\  \\\\|__| \\  \\ \\  \\ \\  \\    \\ \\   _  _\\ \\  \\\\\\  \\ \\   __  \\ \\  \\\\\\  \\ \\  \\\\\\  \\   \\ \\  \\  
@@ -20,5 +20,5 @@ Http.createServer(app.callback()).listen({ port: 3000, host: '0.0.0.0' }, functi
    \\ \\__\\    \\ \\__\\ \\__\\ \\_______\\ \\__\\\\ _\\\\ \\_______\\ \\_______\\ \\_______\\ \\_______\\   \\ \\__\\
     \\|__|     \\|__|\\|__|\\|_______|\\|__|\\|__|\\|_______|\\|_______|\\|_______|\\|_______|    \\|__|  Version: 1.0.0`);
 
-    console.log('\n[MicroBoot]: The service listening http://0.0.0.0:3000');
+  console.log('\n[MicroBoot]: The service listening http://0.0.0.0:3000');
 });

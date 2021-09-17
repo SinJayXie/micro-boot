@@ -6,7 +6,9 @@
   "scripts": {
     "package-arm64": "echo building linux win macos package... && rm -rf output && rm -rf build && rm -rf debug && tsc --outDir build && echo building linux... && pkg . --compress Gzip -t node14-linux-arm64 -o output/MicroBootApp_linux_arm64 && echo building windows... && pkg . --compress Gzip -t node14-win-arm64 -o output/MicroBootApp_win_arm64 && echo building darwin... && pkg . --compress Gzip -t node14-macos-arm64 -o output/MicroBootApp_macos_arm64 && rm -rf build && rm -rf debug",
     "package": "echo building linux win macos package... && rm -rf output && rm -rf build && rm -rf debug && tsc --outDir build && echo building linux... && pkg . --compress Gzip -t node14-linux-x64 -o output/MicroBootApp_linux_x64 && echo building windows... && pkg . --compress Gzip -t node14-win-x64 -o output/MicroBootApp_win_x64 && echo building darwin... && pkg . --compress Gzip -t node14-macos-x64 -o output/MicroBootApp_macos_x64 && rm -rf build && rm -rf debug",
-    "dev": "node ./dev/dev-cli-service.js"
+    "dev": "node ./dev/dev-cli-service.js",
+    "lint": "eslint .",
+    "fix": "eslint . --fix"
   },
   "author": "dishuyl",
   "license": "ISC",
