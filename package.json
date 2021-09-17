@@ -1,0 +1,38 @@
+{
+  "name": "micro-boot",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "package-arm64": "echo building linux win macos package... && rm -rf output && rm -rf build && rm -rf debug && tsc --outDir build && echo building linux... && pkg . --compress Gzip -t node14-linux-arm64 -o output/MicroBootApp_linux_arm64 && echo building windows... && pkg . --compress Gzip -t node14-win-arm64 -o output/MicroBootApp_win_arm64 && echo building darwin... && pkg . --compress Gzip -t node14-macos-arm64 -o output/MicroBootApp_macos_arm64 && rm -rf build && rm -rf debug",
+    "package": "echo building linux win macos package... && rm -rf output && rm -rf build && rm -rf debug && tsc --outDir build && echo building linux... && pkg . --compress Gzip -t node14-linux-x64 -o output/MicroBootApp_linux_x64 && echo building windows... && pkg . --compress Gzip -t node14-win-x64 -o output/MicroBootApp_win_x64 && echo building darwin... && pkg . --compress Gzip -t node14-macos-x64 -o output/MicroBootApp_macos_x64 && rm -rf build && rm -rf debug",
+    "dev": "node ./dev/dev-cli-service.js"
+  },
+  "author": "dishuyl",
+  "license": "ISC",
+  "bin": "./build/service.js",
+  "pkg": {
+    "assets": [
+      "./build"
+    ]
+  },
+  "dependencies": {
+    "@types/chalk": "^2.2.0",
+    "@types/koa": "^2.13.4",
+    "@types/koa-bodyparser": "^4.3.3",
+    "@types/koa-router": "^7.4.4",
+    "@types/koa-session": "^5.10.4",
+    "@types/mysql": "^2.15.19",
+    "chalk": "^4.1.2",
+    "koa": "^2.13.1",
+    "koa-bodyparser": "^4.3.0",
+    "koa-router": "^10.1.1",
+    "koa-session": "^6.2.0",
+    "mysql": "^2.18.1",
+    "pkg": "^5.3.2",
+    "typescript": "^4.4.3"
+  },
+  "devDependencies": {
+    "chokidar": "^3.5.2"
+  }
+}

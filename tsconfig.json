@@ -1,0 +1,31 @@
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "target": "es2017",
+        "noImplicitAny": true,
+        "moduleResolution": "node",
+        "sourceMap": false,
+        "removeComments": true,
+        "strictNullChecks": true,
+        "strictBindCallApply": true,
+        "strict": true,
+        "noFallthroughCasesInSwitch": true,
+        "listEmittedFiles": true,
+        "outDir": "debug",  // TS文件编译后会放入到此文件夹内
+        "baseUrl": ".",
+        "paths": {
+            "*": [
+                "node_modules/*",
+                "lib/types/*"
+            ]
+        },
+    },
+    "exclude": [
+        "node_modules",
+        "debug",
+        "dist",
+        "bin",
+        "build",
+    ],
+    "compileOnSave": true
+}
