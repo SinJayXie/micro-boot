@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title><%= title; %></title>
+</head>
+<body>
+<input type="file" id="uploadFileInput">
+<button onclick="uploadFile()"><%= submitText; %></button>
+</body>
+<script>
+    const xml = new XMLHttpRequest();
+    function uploadFile() {
+        const formData = new FormData();
+        formData.append('file', uploadFileInput.files[0])
+        xml.open('post','/test-demo/index/upload')
+        xml.send(formData)
+    }
+</script>
+</html>

@@ -6,14 +6,15 @@ import * as Chalk from './chalk';
 import { Context, Next } from 'koa';
 import * as KoaSession from 'koa-session';
 import * as KoaBodyparser from 'koa-bodyparser';
+import * as ErrorUtil from './util/error';
+import * as KoaBody from 'koa-body';
+import * as Config from '../config/config';
 
 const projectDir: string = path.join(__dirname, '..');
 
 /**
  * 初始化控制器
  */
-
-
 const initController = function (router: Router) {
   // 遍历服务目录
   const serviceModule: string[] = fs.readdirSync(path.join(projectDir, 'controller'));
@@ -25,7 +26,7 @@ const initController = function (router: Router) {
       const searchController: string[] = fs.readdirSync(controllerDir);
       const loaderList: any = {};
       searchController.forEach(controllerName => {
-        // 遍历加载控制器到内存中
+        // 加载控制器到内存中
         loaderList[splitName(controllerName)] = loadModule(path.join(controllerDir, controllerName));
       });
       serviceMap.set(serviceName, loaderList);
@@ -60,9 +61,16 @@ const setRouter = function (serviceMap: Map<any, any>, router: Router) {
           };
         }
       } catch (e: any) {
-        Chalk.error(e.stack);
-        ctx.status = 500;
-        ctx.body = e.stack;
+        console.log(e.stack);
+        switch (e.message) {
+          case 'define':
+            break;
+          default:
+            Chalk.error(e.stack);
+            ctx.status = 500;
+            ctx.body = ErrorUtil(ctx, e.stack);
+        }
+
       }
     }
     await next();
@@ -123,6 +131,7 @@ const Core = function (app: Application, router: Router) {
   });
   app.use(KoaBodyparser());
   app.use(KoaSession(SESSION_CONFIG, app));
+  app.use(KoaBody(Config.upload));
   loadMiddleware(app);
   initController(router);
 };

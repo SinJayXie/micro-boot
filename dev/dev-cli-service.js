@@ -25,7 +25,7 @@ watcher.on('ready', function () {
   console.log('building code......');
   exec(`${dirName}/node_modules/.bin/eslint . --fix`, function (error, stdout, stderr) {
     if(error) {
-      console.log(Chalk.red(stdout));
+      console.log(Chalk.red(error));
       if(processService !== null) processService.kill();
       processService = null;
     } else {
@@ -38,11 +38,30 @@ watcher.on('ready', function () {
           processService = null;
         } else {
           console.log(stdout);
+          exec(`cp -r ${dirName}/assets ${dirName}/debug/`);
           processService = fork('./debug/service');
+          let url = 'http://localhost',
+            port= 3000,
+            cmd = '';
+          switch (process.platform) {
+            case 'win32':
+              cmd = 'start';
+              break;
+            case 'linux':
+              cmd = 'xdg-open';
+              break;
+
+            case 'darwin':
+              cmd = 'open';
+              break;
+          }
+          setTimeout(() => {
+            exec(cmd + ' ' + url + ':' + port + '/micro-boot-welcome');
+          }, 1000)
         }
       });
     }
-  })
+  });
 });
 
 watcher.on('change', function (path) {
@@ -56,7 +75,7 @@ watcher.on('change', function (path) {
     console.log('Rebuilding code......');
     exec(`${dirName}/node_modules/.bin/eslint . --fix`, function (error, stdout, stderr) {
       if(error) {
-        console.log(Chalk.red(stdout));
+        console.log(Chalk.red(error));
         if(processService !== null) processService.kill();
         processService = null;
       } else {
@@ -69,13 +88,14 @@ watcher.on('change', function (path) {
             if(processService !== null) processService.kill();
             processService = null;
           } else {
+            exec(`cp -r ${dirName}/assets ${dirName}/debug/`);
             console.log(stdout);
             console.log('Rebuild time:' + (Date.now()/1000 - startTime/1000) + 's');
             processService = fork('./debug/service');
           }
         });
       }
-    })
+    });
 
 
   }
